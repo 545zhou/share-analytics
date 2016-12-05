@@ -32,30 +32,26 @@ export default Ember.Controller.extend({
 
     storedDashboards: [],
 
-    init(){
-        this.store.findAll('widget').then((items) => {
-            let widgets = [];
-            console.log(items);
-            items.forEach(function(item, index, enumerable){
-                widgets.push({
-                    name: item.get('name'),
-                    author: item.get('author'),
-                    width: item.get('width'),
-                    height: item.get('height'),
-                    query: item.get('query'),
-                    settings: item.get('settings')});
-            });
-            console.log(widgets);
-            this.set('widgets', widgets);
-        });
-    },
-
     actions: {
 
         restoreWidgets: function(){
-            if(this.get('widgets').length > 0){
-              this.set('sortableObjectList', this.get('widgets').slice());
-            }
+            this.store.findAll('widget').then((items) => {
+                let widgets = [];
+                console.log(items);
+                items.forEach(function(item, index, enumerable){
+                    widgets.push({
+                        name: item.get('name'),
+                        author: item.get('author'),
+                        width: item.get('width'),
+                        height: item.get('height'),
+                        query: item.get('query'),
+                        settings: item.get('settings')});
+                });
+                this.set('widgets', widgets);
+                if(this.get('widgets').length > 0){
+                  this.set('sortableObjectList', this.get('widgets').slice());
+                }
+            });
         },
 
         changeQ: function(query) {

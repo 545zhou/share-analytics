@@ -24,5 +24,3 @@ class Dashboard(Model):
         'widget.Widget',
         related_name='containing_dashboards'
     )
-
-
